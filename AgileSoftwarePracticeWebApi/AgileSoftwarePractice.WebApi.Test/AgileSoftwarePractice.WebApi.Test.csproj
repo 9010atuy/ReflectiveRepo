@@ -17,7 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\AgileSoftwarePracticeWebApi\AgileSoftwarePractice.WebApi.csproj" />
+    <ProjectReference Include="..\AgileSoftwarePractice.WebApi\AgileSoftwarePractice.WebApi.csproj" />
   </ItemGroup>
 
   <ItemGroup>

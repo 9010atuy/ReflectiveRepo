@@ -1,61 +1,63 @@
-﻿
-namespace AgileSoftwarePractice.Domain;
+﻿namespace AgileSoftwarePractice.Domain;
 
 public class PrimeCreator
 {
+    private int _maxValue = -1;
+    private List<bool> _isPrimeList = [];
+    private List<int> _primeList = [];
+
+    public void SetMaxValue(int maxValue)
+    {
+        ArgumentOutOfRangeException.ThrowIfLessThan(maxValue, 2);
+        _maxValue = maxValue;
+    }
+
     public IEnumerable<int>? Generate(int maxValue)
     {
-        if (maxValue < 2)
+        Initialize();
+        CalculatePrime();
+        LoadPrime();
+        return _primeList;
+    }
+
+    private void LoadPrime()
+    {
+        var number = 0;
+        // 素数の抜き出し
+        foreach (var isPrime in _isPrimeList)
         {
-            return null;
-        }
-
-        var arraySize = maxValue + 1;
-        bool[] primeJudgeArray = new bool[arraySize];
-        int i;
-
-        // 初期化
-        for (i = 0; i < arraySize; i++)
-        {
-            primeJudgeArray[i] = true;
-        }
-
-        // 周知の非素数を取り除く
-        primeJudgeArray[0] = primeJudgeArray[1] = false;
-
-        // ふるい落とす
-        int j;
-        for (i = 2; i < Math.Sqrt(arraySize); i++)
-        {
-            if (primeJudgeArray[i])
+            if (isPrime)
             {
-                for (j = 2 * i; j < arraySize; j += i)
+                _primeList.Add(number);
+            }
+            number++;
+        }
+    }
+
+    private void CalculatePrime()
+    {
+        _isPrimeList[0] = _isPrimeList[1] = false;
+        for (int i = 2; i < Math.Sqrt(_isPrimeList.Count); i++)
+        {
+            if (_isPrimeList[i])
+            {
+                for (int j = 2 * i; j < _isPrimeList.Count; j += i)
                 {
-                    primeJudgeArray[j] = false; // 倍数は素数ではない
+                    _isPrimeList[j] = false; // 倍数は素数ではない
                 }
             }
         }
+    }
 
-        // 見つけた素数の個数をカウント
-        int count = 0;
-        for (i = 0; i < arraySize; i++)
+    /// <summary>
+    /// 素数判定リストを作成します。
+    /// </summary>
+    /// <returns>素数判定リスト</returns>
+    private void Initialize()
+    {
+        for (int i = 0; i < _maxValue; i++)
         {
-            if (primeJudgeArray[i])
-            {
-                count++;
-            }
+            _isPrimeList.Add(true);
         }
-
-        int[] primes = new int[count];
-
-        // 素数の抜き出し
-        for (i = 0, j = 0; i < arraySize; i++)
-        {
-            if (primeJudgeArray[i])
-            {
-                primes[j++] = i;
-            }
-        }
-        return primes;
     }
 }

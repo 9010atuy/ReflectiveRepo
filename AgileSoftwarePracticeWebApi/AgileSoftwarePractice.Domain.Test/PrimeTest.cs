@@ -8,8 +8,9 @@ public class PrimeTest
     public void TestGeneratePrime()
     {
         var input = 10;
-        var prime = new PrimeCreator();
-        var act = prime.Generate(input);
+        var primeCreator = new PrimeCreator();
+        primeCreator.SetMaxValue(input);
+        var act = primeCreator.Generate(input);
         Assert.Equal([2, 3, 5, 7], act);
     }
 }
