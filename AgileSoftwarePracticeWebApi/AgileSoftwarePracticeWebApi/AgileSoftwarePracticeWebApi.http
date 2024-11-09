@@ -1,0 +1,6 @@
+@AgileSoftwarePracticeWebApi_HostAddress = http://localhost:5221
+
+GET {{AgileSoftwarePracticeWebApi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
